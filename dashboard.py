@@ -100,6 +100,26 @@ bottom_10_gdp_fig = px.bar(bottom_10_gdp, x='Country Name', y='GDP', labels={'GD
 st.plotly_chart(top_10_gdp_fig)
 st.plotly_chart(bottom_10_gdp_fig)
 
+# Filter for the most recent year (2022) and exclude rows with null or zero fertility rate
+df_fertility_2022 = df[(df['Year'] == 2022) & (df['Fertility Rate'] > 0)]
+
+# Get top 10 and bottom 10 countries by Fertility Rate
+top_10_fertility = df_fertility_2022.nlargest(10, 'Fertility Rate')
+bottom_10_fertility = df_fertility_2022.nsmallest(10, 'Fertility Rate')
+
+# Bar chart for top 10 countries by Fertility Rate in 2022
+top_10_fertility_fig = px.bar(top_10_fertility, x='Country Name', y='Fertility Rate', 
+                              title="Top 10 Countries by Fertility Rate in 2022",
+                              labels={'Fertility Rate': 'Fertility Rate (births per woman)'})
+
+# Bar chart for bottom 10 countries by Fertility Rate in 2022
+bottom_10_fertility_fig = px.bar(bottom_10_fertility, x='Country Name', y='Fertility Rate', 
+                                 title="Bottom 10 Countries by Fertility Rate in 2022",
+                                 labels={'Fertility Rate': 'Fertility Rate (births per woman)'})
+
+# Display the bar charts
+st.plotly_chart(top_10_fertility_fig)
+st.plotly_chart(bottom_10_fertility_fig)
 
 
 # Interactivity: Country Search
